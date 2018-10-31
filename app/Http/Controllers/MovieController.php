@@ -31,4 +31,17 @@ class MovieController extends Controller
     {
         return response()->json($this->movie->all(), 200);
     }
+
+    /**
+     * show movie information
+     *
+     * @param Movie $movie
+     * @return Response
+     */
+    public function showMovieInformation($movie)
+    {
+        $movie = $this->movie->find($movie);
+
+        return response()->json($movie, 200);
+    }
 }
