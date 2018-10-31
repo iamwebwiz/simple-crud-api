@@ -20,9 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'movies'], function() {
     Route::get('/', 'MovieController@showMovies');
 
-    Route::post('/new', 'MovieController@store')->name('api.movies.store');
+    Route::post('/new', 'MovieController@store');
 
     Route::get('/{movie}', 'MovieController@showMovieInformation');
+
+    Route::put('/{movie}', 'MovieController@update');
 
     Route::delete('/{movie}', 'MovieController@delete');
 });
