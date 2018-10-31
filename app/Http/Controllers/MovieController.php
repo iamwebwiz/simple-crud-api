@@ -53,13 +53,13 @@ class MovieController extends Controller
         }
 
         // upload image to cloudinary
-        Cloudder::upload($validation['image'], $validation['title'].time());
+        Cloudder::upload(request('image'), request('title').time());
         $image = Cloudder::getResult();
 
         $movie = new Movie();
-        $movie->title = $validation['title'];
-        $movie->genre = $validation['genre'];
-        $movie->synopsis = $validation['synopsis'];
+        $movie->title = request('title');
+        $movie->genre = request('genre');
+        $movie->synopsis = request('synopsis');
         $movie->image = $image['url'];
 
         if ($movie->save()) {
