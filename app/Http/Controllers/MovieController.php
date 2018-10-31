@@ -52,14 +52,17 @@ class MovieController extends Controller
             return response()->json($validation->errors(), 400);
         }
 
-        // upload image to cloudinary
-        Cloudder::upload(request('image'), request('title').time());
-        $image = Cloudder::getResult();
-
         $movie = new Movie();
         $movie->title = request('title');
         $movie->genre = request('genre');
         $movie->synopsis = request('synopsis');
+
+        if (request('image')) {
+            // upload image to cloudinary
+            Cloudder::upload(request('image'), request('title').time());
+            $image = Cloudder::getResult();
+        }
+
         $movie->image = $image['url'];
 
         if ($movie->save()) {
@@ -104,14 +107,16 @@ class MovieController extends Controller
             return response()->json($validation->errors(), 400);
         }
 
-        // upload image to cloudinary
-        Cloudder::upload(request('image'), request('title').time());
-        $image = Cloudder::getResult();
+        if (request('image')) {
+            // upload image to cloudinary
+            Cloudder::upload(request('image'), request('title').time());
+            $image = Cloudder::getResult();
+            $movie->image = $image['url'];
+        }
 
         $movie->title = request('title');
         $movie->genre = request('genre');
         $movie->synopsis = request('synopsis');
-        $movie->image = $image['url'];
 
         if ($movie->save()) {
             return response()->json('Movie updated.', 201);
