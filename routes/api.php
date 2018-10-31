@@ -21,4 +21,6 @@ Route::group(['prefix' => 'movies'], function() {
     Route::get('/', 'MovieController@showMovies');
 
     Route::get('/{movie}', 'MovieController@showMovieInformation');
+
+    Route::delete('/{movie}', 'MovieController@delete');
 });
