@@ -18,12 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/movies/{movie}', function($movie) {
-    $movie = App\Movie::findOrFail($movie);
-    return view('edit', compact('movie'));
-});
