@@ -1,21 +1,22 @@
-## simple crud api
+# simple crud api
 
 **Base URL:** `http://simplecrudapi.herokuapp.com/api/movies`
 
-### Endpoints
-- **GET** `/`
+## Endpoints
 
-Displays all movies in database.
+### Display all movies
+* URL: `/`
+* Method: `GET`
 
-- **GET** `/:movieId`
+### Display the information on a movie
+* URL: `/:movieId`
+* Method: `GET`
+* Params
+    * `movieId`: integer
 
-Displays information on a movie
-    - Params:
-        - `movieId`: integer
-
-- **DELETE** `/:movieId`
-
-Deletes a movie resource from database
-    - Params
-        - `movieId`: integer
+### Delete a movie resource
+* URL: `/:movieId`
+* Method: `DELETE`
+* Params
+    * `movieId`: integer
 
