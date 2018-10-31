@@ -35,7 +35,7 @@ class MovieController extends Controller
     /**
      * show movie information
      *
-     * @param Movie $movie
+     * @param App\Movie $movie
      * @return Response
      */
     public function showMovieInformation($movie)
@@ -43,5 +43,19 @@ class MovieController extends Controller
         $movie = $this->movie->find($movie);
 
         return response()->json($movie, 200);
+    }
+
+    /**
+     * delete a movie
+     *
+     * @param Request $request
+     * @param App\Movie $movie
+     * @return Response
+     */
+    public function delete(Request $request, $movie)
+    {
+        $this->movie->find($movie)->delete();
+
+        return response()->json('Movie has been deleted.', 201);
     }
 }
