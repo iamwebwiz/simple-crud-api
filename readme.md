@@ -1,12 +1,12 @@
 ## simple crud api
 
-**Base URL:** `http://simplecrudapi.herokuapp.com/api`
+**Base URL:** `http://simplecrudapi.herokuapp.com/api/movies`
 
 ### Endpoints
-- **GET** `/movies`
+- **GET** `/`
 Displays all movies in database.
 
-- **GET** `/movies/:movieId`
+- **GET** `/:movieId`
 Displays information on a movie
     - Params:
         - `movieId`: integer

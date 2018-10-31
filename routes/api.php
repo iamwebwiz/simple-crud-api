@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/movies', 'MovieController@showMovies');
+Route::group(['prefix' => 'movies'], function() {
+    Route::get('/', 'MovieController@showMovies');
 
-Route::get('/movies/{movie}', 'MovieController@showMovieInformation');
+    Route::get('/{movie}', 'MovieController@showMovieInformation');
+});
