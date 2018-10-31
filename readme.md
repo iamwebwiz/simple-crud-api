@@ -8,6 +8,15 @@
 * URL: `/`
 * Method: `GET`
 
+### Add a new movie
+* URL: `/new`
+* Method: `POST`
+* Form Params
+    * `title`: string
+    * `genre`: string
+    * `synopsis`: text
+    * `image`: image (mimes: `jpg, jpeg, png`)
+
 ### Display the information on a movie
 * URL: `/:movieId`
 * Method: `GET`
