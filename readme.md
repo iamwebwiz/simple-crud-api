@@ -4,3 +4,10 @@
 
 ### Endpoints
 - **GET** `/movies`
+Displays all movies in database.
+
+- **GET** `/movies/:movieId`
+Displays information on a movie
+    - Params:
+        - `movieId`: integer
+
