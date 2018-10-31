@@ -15,6 +15,23 @@
                                 <label>{{ __('Title') }}</label>
                                 <input type="text" name="title" class="form-control">
                             </div>
+
+                            <div class="form-group">
+                                <label>{{ __('Genre') }}</label>
+                                <input type="text" name="genre" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ __('Image') }}</label>
+                                <input type="file" name="image" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ __('Synopsis') }}</label>
+                                <textarea name="synopsis" class="form-control"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add Movie</button>
                         </form>
                     </div>
                 </div>
