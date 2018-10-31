@@ -83,6 +83,44 @@ class MovieController extends Controller
     }
 
     /**
+     * update information on a movie
+     *
+     * @param Request $request
+     * @param App\Movie $movie
+     * @return Response
+     */
+    public function update(Request $request, $movie)
+    {
+        $movie = $this->movie->find($movie);
+
+        $validation = validator($request->all(), [
+            'title' => 'required|string',
+            'genre' => 'required|string',
+            'synopsis' => 'required',
+            'image' => 'image|mimes:jpeg,jpg,png|between:1,10000'
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 400);
+        }
+
+        // upload image to cloudinary
+        Cloudder::upload(request('image'), request('title').time());
+        $image = Cloudder::getResult();
+
+        $movie->title = request('title');
+        $movie->genre = request('genre');
+        $movie->synopsis = request('synopsis');
+        $movie->image = $image['url'];
+
+        if ($movie->save()) {
+            return response()->json('Movie updated.', 201);
+        }
+
+        return response()->json('An error occured. Please try again.', 500);
+    }
+
+    /**
      * delete a movie
      *
      * @param Request $request
