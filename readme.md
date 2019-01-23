@@ -1,6 +1,6 @@
 # simple crud api
 
-**Base URL:** `http://simplecrudapi.herokuapp.com/api/movies`
+**Base URL:** `https://simplecrudapi.herokuapp.com/api/movies`
 
 ## Endpoints
 
