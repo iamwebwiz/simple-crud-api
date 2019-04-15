@@ -45,7 +45,7 @@ class MovieController extends Controller
             'title' => 'required|string',
             'genre' => 'required|string',
             'synopsis' => 'required',
-            'image' => 'image|mimes:jpeg,jpg,png|max:10240'
+            // 'image' => 'image|mimes:jpeg,jpg,png|max:10240'
         ]);
 
         if ($validation->fails()) {
@@ -57,6 +57,7 @@ class MovieController extends Controller
         $movie->genre = request('genre');
         $movie->synopsis = request('synopsis');
 
+        /**
         if (request('image')) {
             // upload image to cloudinary
             Cloudder::upload(request('image'), request('title').time());
@@ -64,6 +65,7 @@ class MovieController extends Controller
         }
 
         $movie->image = $image['url'];
+        */
 
         if ($movie->save()) {
             return response()->json('Movie successfully added.', 201);
