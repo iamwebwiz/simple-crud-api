@@ -45,7 +45,7 @@ class MovieController extends Controller
             'title' => 'required|string',
             'genre' => 'required|string',
             'synopsis' => 'required',
-            // 'image' => 'image|mimes:jpeg,jpg,png|max:10240'
+            'image' => 'image|mimes:jpeg,jpg,png|max:10240'
         ]);
 
         if ($validation->fails()) {
