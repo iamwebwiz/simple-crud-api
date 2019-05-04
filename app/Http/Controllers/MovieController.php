@@ -45,30 +45,36 @@ class MovieController extends Controller
             'title' => 'required|string',
             'genre' => 'required|string',
             'synopsis' => 'required',
-            'image' => 'image|mimes:jpeg,jpg,png|max:10240'
+            'image' => 'image|mimes:jpeg,jpg,png|max:10240',
         ]);
 
         if ($validation->fails()) {
-            return response()->json($validation->errors(), 400);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validation->errors(),
+            ]);
+        }
+
+        $image_url = null;
+
+        if ($request->image) {
+            Cloudder::upload($request->image, str_slug($request->title) . time());
+            $image = Cloudder::getResult();
+            $image_url = $image['url'];
         }
 
         $movie = new Movie();
-        $movie->title = request('title');
-        $movie->genre = request('genre');
-        $movie->synopsis = request('synopsis');
+        $movie->title = $request->title;
+        $movie->genre = $request->genre;
+        $movie->synopsis = $request->synopsis;
+        $movie->image = $image_url;
+        $movie->save();
 
-        if (request('image')) {
-            // upload image to cloudinary
-            Cloudder::upload(request('image'), request('title').time());
-            $image = Cloudder::getResult();
-            $movie->image = $image['url'];
-        }
-
-        if ($movie->save()) {
-            return response()->json('Movie successfully added.', 201);
-        }
-
-        return response()->json('An error occured. Please try again.', 500);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Movie has been added successfully.',
+            'movie' => $movie,
+        ], 201);
     }
 
     /**
@@ -99,29 +105,25 @@ class MovieController extends Controller
             'title' => 'required|string',
             'genre' => 'required|string',
             'synopsis' => 'required',
-            'image' => 'image|mimes:jpeg,jpg,png|between:1,10000'
         ]);
 
         if ($validation->fails()) {
-            return response()->json($validation->errors(), 400);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validation->errors(),
+            ]);
         }
 
-        if (request('image')) {
-            // upload image to cloudinary
-            Cloudder::upload(request('image'), request('title').time());
-            $image = Cloudder::getResult();
-            $movie->image = $image['url'];
-        }
+        $movie->title = $request->title;
+        $movie->genre = $request->genre;
+        $movie->synopsis = $request->synopsis;
+        $movie->save();
 
-        $movie->title = request('title');
-        $movie->genre = request('genre');
-        $movie->synopsis = request('synopsis');
-
-        if ($movie->save()) {
-            return response()->json('Movie updated.', 201);
-        }
-
-        return response()->json('An error occured. Please try again.', 500);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Movie has been updated.',
+            'movie' => $movie,
+        ]);
     }
 
     /**
